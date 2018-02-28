@@ -29,7 +29,7 @@
 %
 
 function [  ] = bihist( i, j, bin_width, k )
-%CREATE_BIHIST Outputs a bihistogram figure
+%BIHIST Outputs a bihistogram figure
 %   Takes two arrays and produces a bihistogram figure. Script also provides 
 %   the cability to perform bootstrapping (with replacement) for experiments 
 %   with small sample sizes. 
