@@ -6,17 +6,17 @@
 % Name:         bihist.m
 %
 % Description:
-%   Produces a bihistogram plot of the provided datasets. As described in 
+%   Produces a bihistogram plot of the provided datasets. As described in
 %   the NIST Engineering Statistics Handbook:
-%       The bihistogram is an [exploratory data analysis] tool for assessing 
-%       whether a before-versus-after engineering modification has caused 
+%       The bihistogram is an [exploratory data analysis] tool for assessing
+%       whether a before-versus-after engineering modification has caused
 %       a change in
 %          * location;
 %          * variation; or
 %          * distribution.
-%       It is a graphical alternative to the two-sample t-test. The 
-%       bihistogram can be more powerful than the t-test in that all of the 
-%       distributional features (location, scale, skewness, outliers) are 
+%       It is a graphical alternative to the two-sample t-test. The
+%       bihistogram can be more powerful than the t-test in that all of the
+%       distributional features (location, scale, skewness, outliers) are
 %       evident on a single plot. It is also based on the common and well-
 %       understood histogram.
 %
@@ -30,9 +30,9 @@
 
 function [  ] = bihist( i, j, bin_width, k )
 %BIHIST Outputs a bihistogram figure
-%   Takes two arrays and produces a bihistogram figure. Script also provides 
-%   the cability to perform bootstrapping (with replacement) for experiments 
-%   with small sample sizes. 
+%   Takes two arrays and produces a bihistogram figure. Script also provides
+%   the cability to perform bootstrapping (with replacement) for experiments
+%   with small sample sizes.
 
 % Checks if the bootstrapping array exists (parameter k).
 % Array format: [sample-size, num-iterations], or []
@@ -58,7 +58,7 @@ b1 = bar(binCenters1, counts1, 1.0);
 b1.FaceColor = [0 0.4470 0.7410];
 hold on;
 
-b2 = bar(binCenters2, counts2.*-1.0, 1.0, 'w');
+b2 = bar(binCenters2, counts2.*-1.0, 1.0);
 b2.FaceColor = [0.8500 0.3250 0.0980];
 
 grid minor
@@ -67,4 +67,3 @@ hold off;
 return
 
 end
-
