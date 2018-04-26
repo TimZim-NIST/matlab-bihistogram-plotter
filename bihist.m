@@ -48,10 +48,23 @@ else
     norm_type = 'count';
 end
 
-[counts1, binEdges1] = histcounts(d1, 'BinWidth', bin_width, 'Normalization', norm_type);
+% BUG FIX: Calculate the bin size and round to four decimal places. When data is
+% imported into the workspace it is casted as DOUBLE. This introduces floating 
+% point precision issues when the HISTCOUNTS attempts to bin each data point. 
+% So far, the best solution is to round the bin edges to four decimal places. 
+% We also have to cast the bin width calculation to INTEGER, because MATLAB
+% takes the floating point approximation literally. While these changes fix
+% the issues we are experiencing, they may not be appropriate for all applications
+% of the bihistogram function--users should take note and validate the results. 
+d1_bins = linspace(min(d1), max(d1)+bin_width, int8(((max(d1)-min(d1))/ bin_width)+2) );
+d1_bins = round(d1_bins, 4);
+d2_bins = linspace(min(d2), max(d2)+bin_width, int8(((max(d2)-min(d2))/ bin_width)+2) );
+d2_bins = round(d2_bins, 4);
+
+[counts1, binEdges1] = histcounts(d1, d1_bins, 'Normalization', norm_type);
 binCenters1 = (binEdges1(1:end-1) + binEdges1(2:end))/2;
 
-[counts2, binEdges2] = histcounts(d2, 'BinWidth', bin_width, 'Normalization', norm_type);
+[counts2, binEdges2] = histcounts(d2, d2_bins, 'Normalization', norm_type);
 binCenters2 = (binEdges2(1:end-1) + binEdges2(2:end))/2;
 
 b1 = bar(binCenters1, counts1, 1.0);
